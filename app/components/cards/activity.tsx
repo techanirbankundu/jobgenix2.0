@@ -12,9 +12,23 @@ const sorafont = Sora({
   weight: "400",
 });
 
+interface ProfileFormData {
+  email: string;
+  phone: string;
+  university: string;
+  location: string;
+  id: string;
+  userId: string;
+  name: string;
+  profileImage: string;
+  summary: string;
+  rurl: string; // Assuming this is the resume URL
+}
+
+
 export default function Activity({ data }: { data: UserDetails }) {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { register, handleSubmit, reset, formState: { isSubmitting } } = useForm();
+  const { register, handleSubmit, reset, formState: { isSubmitting } } = useForm<ProfileFormData>();
   const [isEditable, setIsEditable] = useState(false);
   const [resumeFile, setResumeFile] = useState<{
     name: string;
@@ -67,7 +81,7 @@ export default function Activity({ data }: { data: UserDetails }) {
   }, [userData, reset]);
 
   // Handle profile form submission
-  const onSubmit = async (formData: any) => {
+  const onSubmit = async (formData: ProfileFormData) => {
     try {
       setLoading(true);
       const response = await fetch("/api/profileInfo", {
@@ -189,9 +203,14 @@ export default function Activity({ data }: { data: UserDetails }) {
         if (extractResult.text) {
           await updateSkills(userData.userId, extractResult.text);
         }
-      } catch (error: any) {
-        console.error("Error extracting skills:", error);
+      } catch (error: unknown) {
+        if(error instanceof Error) {
+          console.error("Error extracting skills:", error);
         toast.error("Resume uploaded but skills extraction failed");
+        } else {
+          console.error("Unknown error:", error);
+          toast.error("Resume uploaded but skills extraction failed");
+        } 
       }
 
       // Update local state with the ORIGINAL file name (not stored in DB)
@@ -210,9 +229,14 @@ export default function Activity({ data }: { data: UserDetails }) {
       });
 
       toast.success("Resume uploaded successfully!");
-    } catch (error: any) {
-      console.error("Upload Error:", error);
-      toast.error(error.message || "Failed to upload resume");
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error("Error uploading resume:", error);
+        toast.error(error.message || "Failed to upload resume");
+      } else {
+        console.error("Unknown error:", error);
+        toast.error("Failed to upload resume");
+      }
     } finally {
       setLoading(false);
     }
@@ -229,9 +253,14 @@ export default function Activity({ data }: { data: UserDetails }) {
       const result = await response.json();
       if (!response.ok) throw new Error(result.message || "Failed to update skills.");
       toast.success("Skills extracted and updated successfully");
-    } catch (error: any) {
-      console.error("Error updating skills:", error);
-      toast.error(error.message || "Failed to update skills");
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error("Error updating skills:", error);
+        toast.error(error.message || "Failed to update skills");
+      } else {
+        console.error("Unknown error:", error);
+        toast.error("Failed to update skills");
+      }
     }
   };
 

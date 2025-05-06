@@ -12,11 +12,17 @@ const sorafont = Sora({
   weight: "400",
 });
 
-export default function ReferCard({ data }:any) {
-  interface AccordionDataType {
-    title: string;
-    content: string;
-  }
+interface AccordionDataType {
+  title: string;
+  content: string;
+}
+
+interface ReferCardProps {
+  data: AccordionDataType[];
+}
+
+export default function ReferCard({ data }:ReferCardProps) {
+ 
   
 
   const imgUrl =

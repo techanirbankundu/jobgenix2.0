@@ -29,7 +29,7 @@ export default function LoginModal({ onClose }: LoginModalProps) {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { isSubmitting },
   } = useForm<LoginFormData>(); // Explicitly type the form data
 
   type LoginFormData = {
@@ -116,10 +116,11 @@ export default function LoginModal({ onClose }: LoginModalProps) {
           </div>
 
           <button
+            disabled={isSubmitting}
             type="submit"
             className="w-full py-3 text-xs rounded-md bg-[#0073E6] hover:bg-blue-700 transition font-light"
           >
-            Sign Up
+            Login
           </button>
         </form>
         <a
@@ -130,7 +131,7 @@ export default function LoginModal({ onClose }: LoginModalProps) {
         </a>
 
         <div className="text-center mt-4 text-xs font-light text-gray-300">
-          Already have an account ?{" "}
+          Don&apos;t have an account ?{" "}
           <a href="#" className="text-white hover:underline">
             Log in
           </a>

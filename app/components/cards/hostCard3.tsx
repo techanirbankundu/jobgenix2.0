@@ -10,7 +10,7 @@ import BulletList from "@tiptap/extension-bullet-list";
 
 import MenuBar from "./menuBar";
 
-export default function hostCard3({heading}: {heading: string}) {
+export default function HostCard3({heading}: {heading: string}) {
   const editor = useEditor({
     extensions: [
       StarterKit,
