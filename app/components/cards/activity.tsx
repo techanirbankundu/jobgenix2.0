@@ -298,8 +298,13 @@ export default function Activity({ data }: { data: UserDetails }) {
       
       toast.success("Resume deleted successfully");
     } catch (error: any) {
-      console.error("Error deleting resume:", error);
-      toast.error(error.message || "Failed to delete resume");
+      if (error instanceof Error) {
+        console.error("Error deleting resume:", error);
+        toast.error(error.message || "Failed to delete resume");
+      } else {
+        console.error("Unknown error:", error);
+        toast.error("Failed to delete resume");
+      }
     } finally {
       setLoading(false);
     }
