@@ -1,7 +1,7 @@
 import { CheckCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import ClientOnly from "../../components/client-only/clientOnly";
+// import ClientOnly from "../../components/client-only/clientOnly";
 
 interface Job {
   companyName: string;
@@ -166,12 +166,12 @@ export default function JoBDet({ job }: { job: Job }) {
 
           <div className="mb-6">
             <h2 className="font-bold text-lg mb-3">Job Description</h2>
-            <ClientOnly>
+            {/* <ClientOnly> */}
               <p
                 className="text-sm text-gray-600"
                 dangerouslySetInnerHTML={{ __html: job.description }}
               />
-            </ClientOnly>
+            {/* </ClientOnly> */}
           </div>
 
           <div className="mb-6">

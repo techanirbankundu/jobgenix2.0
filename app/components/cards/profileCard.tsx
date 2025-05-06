@@ -91,7 +91,7 @@ export default function ProfileCard({data}: {data: UserDetails}) {
             Skill(s)
           </p>
           <div className="flex flex-wrap gap-2 mt-2 justify-center">
-            {data.skills.split(",").map((skill: string, index: number) => (
+            {data && data?.skills?.split(",").map((skill: string, index: number) => (
               <span
                 key={index}
                 className="flex  text-white text-xs items-center gap-2.5 [background:var(--Azure-Blue,#0073E6)] shadow-[1px_1px_2px_0px_rgba(255,255,255,0.30)_inset,-1px_-1px_2px_0px_rgba(200,200,200,0.50)_inset,-6px_6px_12px_0px_rgba(200,200,200,0.20),6px_-6px_12px_0px_rgba(200,200,200,0.20),-6px_-6px_12px_0px_rgba(255,255,255,0.90),6px_6px_15px_0px_rgba(200,200,200,0.90)] px-[15px] py-[11px] rounded-3xl"
